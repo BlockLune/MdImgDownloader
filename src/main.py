@@ -3,7 +3,8 @@ import argparse
 import os
 import re
 import time
-import urllib
+import urllib.parse
+import urllib.request
 
 
 def download_image(img_url: str, save_path: str) -> str:
@@ -86,7 +87,7 @@ my_parser.add_argument("-o", "--output-dir", type=str, help="directory to save i
 args = my_parser.parse_args()
 
 for md_dir in args.dir:
-    for root, dirs, files in os.walk(args.dir):
+    for root, dirs, files in os.walk(md_dir):
         for file in files:
             if not file.endswith(".md"):
                 continue
