@@ -6,7 +6,7 @@ This project references [mufidu/download_imgs.py](https://gist.github.com/mufidu
 
 ## Usage
 
-```bash
+```text
 usage: MdImgDownloader [-h] [--only-basename-link] [-o OUTPUT_DIR] dir [dir ...]
 
 Download images in Markdown files and update links
