@@ -11,12 +11,13 @@ s3_endpoint = ''  # Specify your custom S3 endpoint here, or leave as '' to use 
 public_url = ''  # Specify the public URL here
 naming_rule = 'incremental'  # Options: 'original', 'incremental', 'timestamp_incremental'
 
+from botocore.exceptions import NoCredentialsError
+import boto3
 import os
 import re
-import time
 import shutil
-import boto3
-from botocore.exceptions import NoCredentialsError
+import time
+import urllib.parse
 
 # Initialize boto3 client
 s3_client = boto3.client(
@@ -81,7 +82,7 @@ def process_markdown_file(root, file_name, base_directory):
                 s3_key = f"{s3_subfolder}/{s3_key}"
             upload_file(img_path, bucket_name, s3_key)
             # Generate the public URL for the image
-            public_img_url = f"{public_url}/{s3_key}"
+            public_img_url = f"{public_url}/{urllib.parse.quote(s3_key)}"
             # Replace the image link in the markdown content
             content = content.replace(f'({img_name})', f'({public_img_url})')
 
